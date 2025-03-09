@@ -1,0 +1,40 @@
+services:
+  db:
+    build: ./project-db
+    image: project-mariadb:latest
+    container_name: mariadb-container
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: project-db
+      TZ: Asia/Seoul
+    volumes:
+      - ./mariadb-data:/var/lib/mysql
+
+  backend:
+    image: project-backend:latest
+    build: ./project-backend
+    container_name: springboot-container
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://db:3306/project-db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root123
+
+  frontend:
+    image: project-frontend:latest
+    build: ./project-frontend
+    container_name: react-container
+    restart: always
+    ports:
+      - "3000:80"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
