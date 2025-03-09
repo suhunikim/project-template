@@ -18,13 +18,21 @@ bin/
 !**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
-.idea
+.idea/
 *.iws
 *.iml
 *.ipr
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+
+# Build
+out/
+target/
+
+# 기타 임시 파일 등 (필요에 따라 추가)
+*.log
+*.tmp
 
 ### NetBeans ###
 /nbproject/private/

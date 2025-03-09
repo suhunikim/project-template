@@ -19,13 +19,11 @@ services:
     container_name: springboot-container
     restart: always
     ports:
-      - "8080:8080"
+      - "8080:8080"  # Spring Boot 기본 포트
     depends_on:
       - db
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mariadb://db:3306/project-db
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root123
+    env_file:
+      - ./project-backend/.env  # .env 파일 사용 (선택 사항)
 
   frontend:
     image: project-frontend:latest
